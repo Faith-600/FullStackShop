@@ -6,6 +6,14 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import {Server} from 'socket.io'
 import {createServer} from 'http'
+import dotenv  from 'dotenv'
+
+
+dotenv.config();
+const dbPassword = process.env.DB_PASSWORD;
+const sessionSecret = process.env.SESSION_SECRET;
+const dbUsers = process.env.DB_USER;
+const dbName = process.env.DB_NAME;
 
 
 
@@ -17,7 +25,7 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(session({
-  secret: 'Royal',          
+  secret: sessionSecret,          
   resave: false,                  
   saveUninitialized: true,           
   cookie: { maxAge: 1000 * 60 * 60 * 24 } 
@@ -38,10 +46,10 @@ const namePattern = /^[a-zA-Z\s]{2,50}$/;
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'Fa$1234th',
-  database: 'users',
+  host: "localhost",
+  user: dbUsers,
+  password: dbPassword,
+  database: dbName,
 });
 
 
