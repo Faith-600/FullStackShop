@@ -11,7 +11,7 @@ import axios from 'axios';
 import Market from './Redux/Market';
 import Checkout from './Redux/Checkout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import ErrorFallback from './assets/Components/ErrorFallBack';
+import ErrorFallback from './assets/Components/ErrorFallback';
 import {ErrorBoundary} from 'react-error-boundary'
 import Message from './assets/ChatApp/Message'
 import ItemsDetail from './Redux/ItemsDetail';
