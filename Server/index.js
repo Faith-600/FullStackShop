@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 require('dotenv').config();
 
 const express = require('express')
@@ -70,3 +71,6 @@ app.post('/logins',(req,res)=>{
 // app.listen(3001,()=>{
 //     console.log("server is running")
 // })
+=======
+
+>>>>>>> 3095e055b233452b3eb2bfe5ddc82c6f173a48c6

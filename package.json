@@ -16,7 +16,10 @@
     "@heroicons/react": "^2.1.5",
     "@reduxjs/toolkit": "^2.5.0",
     "@tanstack/react-query": "^5.62.8",
+<<<<<<< HEAD
     "axios": "^1.7.9",
+=======
+>>>>>>> 3095e055b233452b3eb2bfe5ddc82c6f173a48c6
     "dotenv": "^16.4.7",
     "flowbite": "^2.5.2",
     "lodash": "^4.17.21",
