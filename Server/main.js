@@ -17,9 +17,14 @@ const dbName = process.env.DB_NAME;
 
 
 
+const allowedOrigins = [
+  'http://localhost:5173', // Your local development URL
+  'https://full-stack-shop-moviir21n-faith-600s-projects.vercel.app' // My Vercel deployment URL
+];
+
 const app = express();
 app.use(cors({
-  origin:process.env.CLIENT_URL || "http://localhost:5173",
+  origin:allowedOrigins,
   methods:["POST","GET",'PUT', 'DELETE'],
   credentials:true
 }));
