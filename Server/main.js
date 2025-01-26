@@ -19,7 +19,7 @@ const dbName = process.env.DB_NAME;
 
 const app = express();
 app.use(cors({
-  origin:["http://localhost:5173"],
+  origin:process.env.CLIENT_URL || "http://localhost:5173",
   methods:["POST","GET",'PUT', 'DELETE'],
   credentials:true
 }));
