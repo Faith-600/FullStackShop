@@ -21,7 +21,7 @@ const app = express();
 
 
 app.use(cors({
-  origin:'http://localhost:5173',
+  origin:'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app',
   methods:["POST","GET",'PUT', 'DELETE'],
   credentials:true
 }));
