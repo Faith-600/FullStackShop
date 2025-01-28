@@ -17,14 +17,11 @@ const dbName = process.env.DB_NAME;
 
 
 const app = express();
-const allowedOrigins = 
-  'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app'; 
- 
 
 
 
 app.use(cors({
-  origin:allowedOrigins,
+  origin:'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app',
   methods:["POST","GET",'PUT', 'DELETE'],
   credentials:true
 }));
@@ -43,7 +40,7 @@ app.use(bodyParser.json());
 const httpServer = createServer(); 
 const io = new Server(httpServer, {
   cors: {
-    origin: allowedOrigins, 
+    origin: 'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app', 
     methods: ["GET", "POST"]
   }
 });
