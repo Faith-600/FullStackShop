@@ -18,8 +18,8 @@ const dbName = process.env.DB_NAME;
 
 
 const allowedOrigins = [
-  'http://localhost:5173', // Your local development URL
-  'full-stack-shop-pbhdpirot-faith-600s-projects.vercel.app'
+  'http://localhost:5173', 
+ 
 ];
 
 const app = express();
