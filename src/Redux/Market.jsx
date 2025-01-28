@@ -71,9 +71,13 @@ function Market() {
               </Link>
               <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
-              <button  className='cart-button' onClick={()=>handleAddToCart(product)}
-                disabled={username === 'Guest'}> Add to Cart
-              </button>
+              <button className={`cart-button ${ username === 'Guest' ? 'cursor-not-allowed opacity-50' : ''
+
+           }`} onClick={() => handleAddToCart(product)} disabled={username === 'Guest'}
+>
+  Add to Cart
+</button>
+
             </a>
           ))}
         </div>
