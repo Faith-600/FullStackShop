@@ -16,18 +16,36 @@ const dbUsers = process.env.DB_USER;
 const dbName = process.env.DB_NAME;
 
 
-
+const app = express();
 const allowedOrigins = [
-  'http://localhost:5173', 
+  'http://localhost:5173',
+  'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app' 
  
 ];
 
-const app = express();
-app.use(cors({
-  origin:allowedOrigins,
-  methods:["POST","GET",'PUT', 'DELETE'],
-  credentials:true
-}));
+const corsOptions = {
+  origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+          callback(null, true);
+      } else {
+          callback(new Error('Not allowed by CORS'));
+      }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  credentials: true 
+};
+
+
+app.use(cors(corsOptions));
+
+
+// app.use(cors({
+//   origin:allowedOrigins,
+//   methods:["POST","GET",'PUT', 'DELETE'],
+//   credentials:true
+// }));
+
+
 app.use(express.json());
 app.use(session({
   secret: sessionSecret,          
