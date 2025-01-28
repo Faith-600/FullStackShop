@@ -17,26 +17,10 @@ const dbName = process.env.DB_NAME;
 
 
 const app = express();
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app' 
+const allowedOrigins = 
+  'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app'; 
  
-];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//           callback(null, true);
-//       } else {
-//           callback(new Error('Not allowed by CORS'));
-//       }
-//   },
-//   methods: ['GET', 'POST', 'PUT', 'DELETE'], 
-//   credentials: true 
-// };
-
-
-// app.use(cors(corsOptions));
 
 
 app.use(cors({
