@@ -16,17 +16,15 @@ const dbUsers = process.env.DB_USER;
 const dbName = process.env.DB_NAME;
 
 
+
+
+
 const app = express();
-
-
-
 app.use(cors({
-  origin:'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app',
+  origin:'http://localhost:5173',
   methods:["POST","GET",'PUT', 'DELETE'],
   credentials:true
 }));
-
-
 app.use(express.json());
 app.use(session({
   secret: sessionSecret,          
@@ -40,7 +38,7 @@ app.use(bodyParser.json());
 const httpServer = createServer(); 
 const io = new Server(httpServer, {
   cors: {
-    origin: 'https://full-stack-shop-1qpxw5ren-faith-600s-projects.vercel.app', 
+    origin: 'http://localhost:5173', 
     methods: ["GET", "POST"]
   }
 });
