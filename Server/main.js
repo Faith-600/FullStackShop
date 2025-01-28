@@ -19,7 +19,7 @@ const dbName = process.env.DB_NAME;
 
 const allowedOrigins = [
   'http://localhost:5173', // Your local development URL
-  'https://full-stack-shop-bcbf4a88a-faith-600s-projects.vercel.app'
+  'full-stack-shop-pbhdpirot-faith-600s-projects.vercel.app'
 ];
 
 const app = express();
