@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "./main.js",
+        "src": "main.js",
         "use": "@vercel/node"
       }
     ],
@@ -10,11 +10,11 @@
       {
         "src": "/(.*)",
         "headers": {
-          "Access-Control-Allow-Origin": "http://localhost:5173",
+          "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
           "Access-Control-Allow-Headers": "Content-Type, Authorization"
         },
-        "dest": "./main.js"
+        "dest": "main.js"
       }
     ]
   }
