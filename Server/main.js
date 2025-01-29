@@ -4,7 +4,7 @@ import cors from 'cors';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
-import {Server} from 'socket.io'
+import { Server } from 'socket.io'
 import {createServer} from 'http'
 import dotenv  from 'dotenv'
 
