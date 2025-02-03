@@ -9,13 +9,13 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons';
 function Home() {
     const [todos,setTodos] = useState([])
     useEffect(()=>{
-      axios.get('http://localhost:3001/get')
+      axios.get('https://full-stack-shop-backend.vercel.app/get')
       .then(result=>setTodos(result.data))
       .catch(err=>console.log(err))
     },[])
 
    const handleDelete =(id)=>{
-    axios.delete(`http://localhost:3001/delete/${id}`)
+    axios.delete(`https://full-stack-shop-backend.vercel.app/delete/${id}`)
     .then(result=>{
       setTodos(todos.filter(todo => todo._id !== id));
     })

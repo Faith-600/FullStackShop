@@ -15,7 +15,7 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/logins', {
+      const response = await axios.post('https://full-stack-shop-backend.vercel.app/logins', {
         name,
         email,
         password,

@@ -14,7 +14,7 @@ function Header() {
 
     const handleLogout = () => {
       axios
-        .post('http://localhost:3001/logout')
+        .post('https://full-stack-shop-backend.vercel.app/logout')
         .then((res) => {
           if (res.status === 200) {
             setUsername(null);  

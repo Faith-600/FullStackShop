@@ -13,7 +13,7 @@ function Chats() {
  // Fetch comments for each post
     const fetchComments = async (postId) => {
         try {
-            const response = await fetch(`http://localhost:3001/api/posts/${postId}/comments`);
+            const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
             const data = await response.json();
     
             setComments((prevComments) => {
@@ -52,7 +52,7 @@ function Chats() {
         if (!text) return;
     
         try {
-            const response = await fetch(`http://localhost:3001/api/posts/${postId}/comments`, {
+            const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ content: text, username }),

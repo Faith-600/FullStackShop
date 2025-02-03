@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001', { withCredentials: true })
+      .get('https://full-stack-shop-backend.vercel.app', { withCredentials: true })
       .then((res) => {
         if (res.data.valid) {
           setUsername(res.data.name);

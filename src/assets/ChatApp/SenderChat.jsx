@@ -14,7 +14,7 @@ function SenderChat({  receiver }) {
   const fetchMessages = () => {
     if (receiver) {
       axios
-        .get(`http://localhost:3001/messages/${username}/${receiver}`)
+        .get(`https://full-stack-shop-backend.vercel.app/messages/${username}/${receiver}`)
         .then((response) => {
        setMessages(response.data);
         })

@@ -33,7 +33,7 @@ function Signup() {
   }
 
     try {
-      const res = await axios.post('http://localhost:3001/users', values);
+      const res = await axios.post('https://full-stack-shop-backend.vercel.app/users', values);
       console.log(res);
       navigate('/');
     } catch (err) {

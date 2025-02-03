@@ -10,7 +10,7 @@ function Layout({posts,setPosts}) {
 
   useEffect(() => {
     axios
-      .get('http://localhost:3001/posts')
+      .get('https://full-stack-shop-backend.vercel.app/posts')
       .then((res) => {
         if (Array.isArray(res.data.posts)) {
           setPosts(res.data.posts); // Update posts state only if it's an array

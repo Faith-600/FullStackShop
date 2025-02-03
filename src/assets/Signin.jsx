@@ -12,7 +12,7 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/sign', { email, password });
+      const response = await axios.post('https://full-stack-shop-backend.vercel.app/sign', { email, password });
 
       if (response.data === "success") {
         navigate('/welcome', { state: { name } });

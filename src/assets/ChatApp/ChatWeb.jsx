@@ -16,7 +16,7 @@ const ChatWeb = () => {
 
       useEffect(() => {
         axios
-          .get("http://localhost:3001/users")
+          .get("https://full-stack-shop-backend.vercel.app/users")
           .then((response) => {
          setUsers(response.data)
       })
@@ -45,7 +45,7 @@ const ChatWeb = () => {
       const sendMessage = () => {
         if (message.trim() && receiver) {
           axios
-            .post("http://localhost:3001/messages", {
+            .post("https://full-stack-shop-backend.vercel.app/messages", {
               sender: username,
               receiver,
               content: message,

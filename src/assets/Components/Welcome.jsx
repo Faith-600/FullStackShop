@@ -26,7 +26,7 @@ axios.defaults.withCredentials = true;
 
 const fetchItems = async () =>{
   try{
-    const response = await axios.get('http://localhost:3001/posts');
+    const response = await axios.get('https://full-stack-shop-backend.vercel.app/posts');
     console.log(response.data.posts);
     // console.log(username)
   setPosts(response.data.posts)
@@ -57,7 +57,7 @@ const handleSubmit = (e) => {
   }
   
   axios
-    .post('http://localhost:3001/posts', { content: newPost, username })
+    .post('https://full-stack-shop-backend.vercel.app/posts', { content: newPost, username })
     .then((response) => {
       console.log(response.data);
       let {content,username,created_at,id}  =  response.data
@@ -78,7 +78,7 @@ const handleEdit = (id, content) => {
 
 const handleUpdate = (id) => {
   axios
-    .put(`http://localhost:3001/posts/${id}`, { content: editContent })
+    .put(`https://full-stack-shop-backend.vercel.app/posts/${id}`, { content: editContent })
     .then((response) => {
       if (response.data.success) {
         setPosts((prevPosts) =>
@@ -97,7 +97,7 @@ const handleUpdate = (id) => {
 
 const handleDelete = (id) => {
   axios
-    .delete(`http://localhost:3001/posts/${id}`)
+    .delete(`https://full-stack-shop-backend.vercel.app/posts/${id}`)
     .then((res) => {
       setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
     })
