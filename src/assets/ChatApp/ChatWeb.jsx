@@ -12,7 +12,7 @@ const ChatWeb = () => {
       const [lastMessages, setLastMessages] = useState({});
 
 
-       const socket = io('http://localhost:5173');
+       const socket = io('https://full-stack-shop-rouge.vercel.app');
 
       useEffect(() => {
         axios
