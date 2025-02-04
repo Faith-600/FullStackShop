@@ -208,7 +208,7 @@ useEffect(() => {
           </div>
           <div>
             <p className="font-semibold text-lg">{p.username}</p>
-            <p className="text-sm text-gray-500">{new Date(p.created_at).toLocaleString()}</p>
+            <p className="text-sm text-gray-500">{new Date(p.createdAt).toLocaleString()}</p>
           </div>
         </div>
          <div>
