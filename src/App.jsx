@@ -21,7 +21,7 @@ export const PostsContext = React.createContext();
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [username, setUsername] = useState(null);
+  const [username, setUsername] = useState("");
   const queryClient = new QueryClient();
   const [loading, setLoading] = useState(true);
 

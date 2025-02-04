@@ -40,7 +40,7 @@ function SignIn() {
       .then((res) => {
         console.log("Login response:", res.data);
         if (res.data.Login) {
-          setUsername(res.data.name)
+          setUsername(res.data.user?.name|| "Guest")
           navigate('/welcome');
         } else {
           showAlert('danger', "Password or Email is incorrect");
