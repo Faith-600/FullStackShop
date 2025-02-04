@@ -29,8 +29,15 @@ const fetchItems = async () =>{
     const response = await axios.get('https://full-stack-shop-backend.vercel.app/posts');
     console.log(response.data.posts);
     // console.log(username)
-  setPosts([response.data.posts])
-  }
+    if (Array.isArray(response.data.posts)) {
+      setPosts(response.data.posts); // ✅ If it's an array, set it directly
+    } else if (response.data && typeof response.data === "object") {
+      setPosts([response.data]); // ✅ If it's an object, wrap it in an array
+    } else {
+      console.error("Unexpected response format:", response.data);
+      setPosts([]); // Prevent crashes
+    }
+      }
   catch(error){
      console.error('Error fetching posts:', error);
   }
