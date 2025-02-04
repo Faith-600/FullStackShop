@@ -232,11 +232,6 @@ useEffect(() => {
   )}
 </ul>
 
-   </>
-              )}
-           </li>
-            ))))}
-           </ul>
            
               </div>
             </blockquote>
