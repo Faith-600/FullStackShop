@@ -36,15 +36,15 @@ function Chats() {
         if (posts.length > 0) {
             posts.forEach(post => {
                 console.log(post.id)
-                const postId = post.id;
+                const postId = post._id;
             if (!postId) {
                 console.error('Invalid postId:', post);
                 return;
             }
                 // Check if comments for this post have already been fetched
-                const commentsForPost = comments.filter(comment => comment.postId === post.id);
+                const commentsForPost = comments.filter(comment => comment.postId === postId);
                 if (commentsForPost.length === 0) {
-                    fetchComments(post.id); // Fetch only if no comments exist
+                    fetchComments(postId); // Fetch only if no comments exist
                 }
             });
         }
