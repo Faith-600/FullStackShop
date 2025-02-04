@@ -61,7 +61,7 @@ const handleSubmit = (e) => {
     .then((response) => {
       console.log(response.data);
       let {content,username,created_at,id}  =  response.data
-      setPosts((prevPosts) => [...prevPosts, response.data]); // Add the new post
+      setPosts((prevPosts) => [...prevPosts, {content,username,created_at,id}]); // Add the new post
       setNewPost(''); // Clear the input
       fetchItems()
      
