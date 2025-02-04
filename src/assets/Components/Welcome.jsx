@@ -35,7 +35,7 @@ const fetchItems = async () =>{
     return;
   }
 
-  setPosts(response.data.posts)
+  setPosts(response.data)
   
 }
   catch(error){
