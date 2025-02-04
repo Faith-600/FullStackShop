@@ -100,7 +100,7 @@ function Chats() {
                         <p>{post.content}</p>
                     </div>
                 </div>
-                <CommentForm submitLabel="Reply" handleSubmit={(text) => addComment(text, post.id)} />
+                <CommentForm submitLabel="Reply" handleSubmit={(text) => addComment(text, post._id)} />
                 
                 {comments.filter(comment => comment.postId === post.id).map(comment => {
                    // Use the comment's existing id as the unique key
