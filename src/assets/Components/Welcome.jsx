@@ -29,8 +29,15 @@ const fetchItems = async () =>{
     const response = await axios.get('https://full-stack-shop-backend.vercel.app/posts');
     console.log(response.data.posts);
     // console.log(username)
-  setPosts([response.data.posts])
+  
+  if (!Array.isArray(response.data)) {
+    console.error("Error: Expected an array but got:", response.data);
+    return;
   }
+
+  setPosts(response.data.posts)
+  
+}
   catch(error){
      console.error('Error fetching posts:', error);
   }
