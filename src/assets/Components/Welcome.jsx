@@ -167,71 +167,63 @@ useEffect(() => {
           <figure className="mt-10">
             <blockquote>
               <div>
-              <ul>
-  {posts && posts.length > 0 ? (
-    posts.filter((p) => p.username === username).length > 0 ? (
-      posts
-        .filter((p) => p.username === username)
-        .map((p) => (
-          <li key={p.id} className='tweets'>
-            {p.id === edit ? (
-              <>
-                <textarea
-                  type='text'
-                  className="w-full p-2 border rounded"
-                  value={editContent}
-                  onChange={(e) => setEditContent(e.target.value)}
-                  rows='4'
+                 <ul>
+           {posts &&
+            posts.filter((p)=>p.username === username)
+           .map((p) => (
+            <li key={p.id} className='tweets'>
+              {p.id === edit?(
+                <>
+                <textarea type ='text'
+                 className="w-full p-2 border rounded"
+                value={editContent}
+                onChange={(e)=>setEditContent(e.target.value)} 
+                rows='4'
                 />
-                <button
-                  onClick={() => handleUpdate(p.id)}
-                  className="ml-2 px-4 py-2 bg-blue-500 text-white rounded"
-                >
-                  Save
-                </button>
-              </>
-            ) : (
-              <div className="bg-white p-6 rounded-lg shadow-lg mb-6">
-                <p className="pcontent">{p.content}</p>
-                <div className="flex justify-between items-center mb-4">
-                  <div className="flex items-center">
-                    <div className="mr-4">
-                      <img
-                        src={avatarUrl}
-                        alt="user Avatar"
-                        className="w-12 h-12 rounded-full object-cover"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-lg">{p.username}</p>
-                      <p className="text-sm text-gray-500">{new Date(p.created_at).toLocaleString()}</p>
-                    </div>
-                  </div>
-                  <div>
-                    <FontAwesomeIcon
-                      icon={faPenToSquare}
-                      className="cursor-pointer mr-4 text-blue-500"
-                      onClick={() => handleEdit(p.id, p.content)}
-                    />
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      className="cursor-pointer text-red-500"
-                      onClick={() => handleDelete(p.id)}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </li>
-        ))
-    ) : (
-      <li>No posts available</li> 
-    )
-  ) : (
-    <li>No posts available</li> 
-  )}
-</ul>
-
+                <button onClick={()=>handleUpdate(p.id)}
+                  className="ml-2 px-4 py-2 bg-blue-500 text-white rounded">
+                    Save
+                  </button>
+                </>
+              ):(
+                <>
+            <ul>
+            <li key={p.id} className="bg-white p-6 rounded-lg shadow-lg mb-6">
+         <p className="pcontent">{p.content}</p>
+        <div className="flex justify-between items-center mb-4">
+        <div className="flex items-center">
+         <div className="mr-4">
+            <img
+              src={avatarUrl}
+              alt="user Avatar"
+              className="w-12 h-12 rounded-full object-cover"
+            />
+          </div>
+          <div>
+            <p className="font-semibold text-lg">{p.username}</p>
+            <p className="text-sm text-gray-500">{new Date(p.created_at).toLocaleString()}</p>
+          </div>
+        </div>
+         <div>
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="cursor-pointer mr-4 text-blue-500"
+            onClick={() => handleEdit(p.id, p.content)}
+          />
+          <FontAwesomeIcon
+            icon={faTrash}
+            className="cursor-pointer text-red-500"
+            onClick={() => handleDelete(p.id)}
+          />
+        </div>
+      </div>
+  </li>
+  </ul>
+   </>
+              )}
+           </li>
+            ))}
+           </ul>
            
               </div>
             </blockquote>
