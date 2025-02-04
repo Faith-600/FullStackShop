@@ -55,13 +55,16 @@ function Chats() {
 
     // Add comment function
     const addComment = async (text, postId) => {
-        if (!text) return;
+        if (!text || !postId) 
+            console.error('Missing text or postId');
+        return;
+           
     
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: text, username }),
+                body: JSON.stringify({ content: text, username,parentId }),
             });
     
             if (!response.ok) throw new Error('Failed to save comment');
