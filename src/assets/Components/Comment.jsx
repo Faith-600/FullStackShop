@@ -24,7 +24,10 @@ function Comment({ comment, replies, addReply,avatarUrl}) {
           <CommentForm
             submitLabel=""
             handleSubmit={(text) => {
+              console.log("message sent ",text);
+              console.log("Id for text ",comment._id)
               addReply(text, comment._id); // Add reply via handler
+
            }}
           />
         </div> 

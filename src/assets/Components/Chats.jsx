@@ -10,11 +10,13 @@ function Chats() {
 
     // Fetch comments for each post
     const fetchComments = async (postId) => {
+        console.log(`Fetching comments for postId: ${postId}`); // Log the postId
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
+            console.log('Response status:', response.status); // Log the response status
             if (!response.ok) throw new Error('Failed to fetch comments');
             const data = await response.json();
-            console.log('Fetched comments:', data); // Log the data
+            console.log('Fetched comments:', data); // Log the fetched data
             setComments((prevComments) => ({ ...prevComments, [postId]: data }));
         } catch (error) {
             console.error('Error fetching comments:', error);
