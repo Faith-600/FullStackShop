@@ -8,7 +8,9 @@ function SenderChat({  receiver }) {
   const [messages, setMessages] = useState([]);
   const { username } = useContext(UserContext);
 
-  const socket = io('https://full-stack-shop-backend.vercel.app');
+  const socket = io('https://full-stack-shop-backend.vercel.app',{
+    transports: ['polling'],
+  )};
  
 
   const fetchMessages = () => {
