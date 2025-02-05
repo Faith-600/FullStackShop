@@ -15,42 +15,47 @@ function Chats() {
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
             const data = await response.json();
-    
-            setComments((prevComments) => {
-                const newComments = data.filter(
-                    (newComment) =>
-                        !prevComments.some(
-                            (existingComment) =>
-                                existingComment.id === newComment.id && existingComment.postId === newComment.postId
-                        )
-                );
-                return [...prevComments, ...newComments];
-            });
+            setComments((prevComments) => ({ ...prevComments, [postId]: data })); // Store per post
+
+            // setComments((prevComments) => {
+                // const newComments = data.filter(
+                //     (newComment) =>
+                //         !prevComments.some(
+                //             (existingComment) =>
+                //                 existingComment.id === newComment.id && existingComment.postId === newComment.postId
+                //         )
+                // );
+                // return [...prevComments, ...newComments];
+            // });
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
     };
     
 
-    useEffect(() => {
-        if (posts.length > 0) {
-            posts.forEach(post => {
-                console.log(post.id)
-                const postId = post._id;
-            if (!postId) {
-                console.error('Invalid postId:', post);
-                return;
-            }
-                // Check if comments for this post have already been fetched
-                const commentsForPost = comments.filter(comment => comment.postId === postId);
-                if (commentsForPost.length === 0) {
-                    fetchComments(postId); // Fetch only if no comments exist
-                }
-            });
-        }
-    }, [posts]);
+    // useEffect(() => {
+    //     if (posts.length > 0) {
+    //         posts.forEach(post => {
+    //             console.log(post.id)
+    //             const postId = post._id;
+    //         if (!postId) {
+    //             console.error('Invalid postId:', post);
+    //             return;
+    //         }
+    //             // Check if comments for this post have already been fetched
+    //             const commentsForPost = comments.filter(comment => comment.postId === postId);
+    //             if (commentsForPost.length === 0) {
+    //                 fetchComments(postId); // Fetch only if no comments exist
+    //             }
+    //         });
+    //     }
+    // }, [posts,comments]);
     
-
+    useEffect(() => {
+        posts.forEach((post) => {
+          fetchComments(post._id);
+        });
+      }, [posts]);
 
 
     // Add comment function
@@ -70,9 +75,12 @@ function Chats() {
             if (!response.ok) throw new Error('Failed to save comment');
     
             const newComment = await response.json();
-    
-            setComments((prevComments) => [...prevComments, { ...newComment, username, postId }]);
+            console.log("Comment added successfully:", newComment);
 
+            setComments((prevComments) => ({
+                ...prevComments,
+                [postId]: [...(prevComments[postId] || []), newComment],
+            }));
         } catch (err) {
             console.error('Failed to create comment:', err);
         }
@@ -104,7 +112,7 @@ function Chats() {
             key={uniqueKey}
             comment={comment}
             replies={[]}
-            addReply={(text) => addComment(text, comment._id)}
+            addReply={(text) => addComment(text,post._id)}
            avatarUrl = {commentAvatarUrl}
         />
     );
