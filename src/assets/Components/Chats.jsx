@@ -54,7 +54,7 @@ function Chats() {
 
 
     // Add comment function
-    const addComment = async (text, postId) => {
+    const addComment = async (text, postId,parentId=null) => {
         if (!text || !postId) 
             console.error('Missing text or postId');
         return;
@@ -71,17 +71,8 @@ function Chats() {
     
             const newComment = await response.json();
     
-            setComments((prevComments) => {
-                if (
-                    !prevComments.some(
-                        (existingComment) =>
-                            existingComment.id === newComment.id && existingComment.postId === newComment.postId
-                    )
-                ) {
-                    return [...prevComments, { ...newComment, username, postId }];
-                }
-                return prevComments;
-            });
+            setComments((prevComments) => [...prevComments, { ...newComment, username, postId }]);
+
         } catch (err) {
             console.error('Failed to create comment:', err);
         }
@@ -92,7 +83,7 @@ function Chats() {
         if (!posts || posts.length === 0) return <p>No posts available</p>;
 
         return posts.map((post) => (
-            <li key={`post-${post.id}`} className="tweet">
+            <li key={`post-${post._id}`} className="tweet">
                 <div className="flex mb-6">
                     <img src={`https://robohash.org/${post.username}`} alt="User Avatar" className="w-12 h-12 rounded-full object-cover mr-4" />
                     <div>
@@ -102,18 +93,16 @@ function Chats() {
                 </div>
                 <CommentForm submitLabel="Reply" handleSubmit={(text) => addComment(text, post._id)} />
                 
-                {comments.filter(comment => comment.postId === post.id).map(comment => {
-                   // Use the comment's existing id as the unique key
-               const uniqueKey = `comment-${comment.postId}-${comment.id}`;
-               const commentAvatarUrl = `https://robohash.org/${comment.username}`;
+                {comments.filter(comment => comment.postId === post._id).map(comment => {
+                    const commentAvatarUrl = `https://robohash.org/${comment.username}`;
 
     
      return (
         <Comment
-            key={uniqueKey}
+          key={comment._id}
             comment={comment}
             replies={[]}
-            addReply={(text) => addComment(text, comment.id)}
+            addReply={(text) => addComment(text, comment._id)}
            avatarUrl = {commentAvatarUrl}
         />
     );
