@@ -35,8 +35,8 @@ function Chats() {
     useEffect(() => {
         if (posts.length > 0) {
             posts.forEach(post => {
-                console.log(post._id)
-                const postId = post._id;
+               const postId = post._id;
+               console.log(post._id)
             if (!postId) {
                 console.error('Invalid postId:', post);
                 return;
