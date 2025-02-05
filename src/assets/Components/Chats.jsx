@@ -59,40 +59,32 @@ function Chats() {
 
 
     // Add comment function
-    const addComment = async (text, postId, parentId = null) => {
+    const addComment = async (text, postId,parentId=null) => {
         if (!text || !postId) {
-            console.error(" Missing text or postId:", { text, postId });
-            return;
+            console.error('Missing text or postId');
+        return;
         }
     
         try {
-            console.log("➡️ Sending POST request with:", { text, username, postId, parentId });
+            const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: text, username,parentId }),
+            });
     
-            const response = await fetch(
-                `https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ content: text, username, parentId }),
-                }
-            );
-    
-            console.log("📡 Response received:", response);
-    
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(` Failed to save comment: ${response.status} - ${response.statusText}\n${errorMessage}`);
-            }
+            if (!response.ok) throw new Error('Failed to save comment');
     
             const newComment = await response.json();
-            console.log(" Comment added successfully:", newComment);
-    
-            setComments((prevComments) => [...prevComments, { ...newComment, username, postId }]);
+            console.log("Comment added successfully:", newComment);
+
+            setComments((prevComments) => ({
+                ...prevComments,
+                [postId]: [...(prevComments[postId] || []), newComment],
+            }));
         } catch (err) {
-            console.error(" Failed to create comment:", err);
+            console.error('Failed to create comment:', err);
         }
     };
-    
         
     // Render posts and comments
     const renderPosts = () => {
@@ -111,13 +103,13 @@ function Chats() {
                 
                 {comments.filter(comment => comment.postId === post._id).map(comment => {
                    // Use the comment's existing id as the unique key
-               const uniqueKey = `comment-${comment.postId}-${comment._id}`;
+            //    const uniqueKey = `comment-${comment.postId}-${comment._id}`;
                const commentAvatarUrl = `https://robohash.org/${comment.username}`;
 
     
      return (
         <Comment
-            key={uniqueKey}
+            key={comment._id}
             comment={comment}
             replies={[]}
             addReply={(text) => addComment(text,post._id)}
