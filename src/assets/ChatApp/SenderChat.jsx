@@ -8,7 +8,7 @@ function SenderChat({  receiver }) {
   const [messages, setMessages] = useState([]);
   const { username } = useContext(UserContext);
 
-  const socket = io('http://localhost:5173');
+  const socket = io('full-stack-shop-rouge.vercel.app');
  
 
   const fetchMessages = () => {
