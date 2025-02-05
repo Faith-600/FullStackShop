@@ -27,7 +27,7 @@ axios.defaults.withCredentials = true;
 const fetchItems = async () =>{
   try{
     const response = await axios.get('https://full-stack-shop-backend.vercel.app/posts');
-    console.log(response.data.posts);
+    console.log(response.data);
     // console.log(username)
   
   if (!Array.isArray(response.data)) {
