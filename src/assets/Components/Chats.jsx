@@ -10,7 +10,7 @@ function Chats() {
     const [comments, setComments] = useState([]);
 
    
- Fetch comments for each post
+ // Fetch comments for each post
     const fetchComments = async (postId) => {
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
@@ -35,8 +35,8 @@ function Chats() {
     useEffect(() => {
         if (posts.length > 0) {
             posts.forEach(post => {
-               const postId = post._id;
-               console.log(post._id)
+                console.log(post.id)
+                const postId = post._id;
             if (!postId) {
                 console.error('Invalid postId:', post);
                 return;
@@ -80,7 +80,7 @@ function Chats() {
         
     // Render posts and comments
     const renderPosts = () => {
-        if (!Array.isArray(posts) || posts.length === 0) return <p>No posts available</p>;
+        if (!posts || posts.length === 0) return <p>No posts available</p>;
 
         return posts.map((post) => (
             <li key={`post-${post._id}`} className="tweet">
@@ -94,12 +94,14 @@ function Chats() {
                 <CommentForm submitLabel="Reply" handleSubmit={(text) => addComment(text, post._id)} />
                 
                 {comments.filter(comment => comment.postId === post._id).map(comment => {
-                    const commentAvatarUrl = `https://robohash.org/${comment.username}`;
+                   // Use the comment's existing id as the unique key
+               const uniqueKey = `comment-${comment.postId}-${comment._id}`;
+               const commentAvatarUrl = `https://robohash.org/${comment.username}`;
 
     
      return (
         <Comment
-          key={comment._id}
+            key={uniqueKey}
             comment={comment}
             replies={[]}
             addReply={(text) => addComment(text, comment._id)}
