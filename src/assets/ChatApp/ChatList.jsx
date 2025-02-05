@@ -22,13 +22,13 @@ function ChatList() {
 useEffect(() => {
   fetchMessages(); // Initial fetch on mount
   
-  // Set up polling every 3 seconds
-  const interval = setInterval(() => {
-    fetchMessages();
-  }, 3000); // Poll every  3 seconds
+  // // Set up polling every 3 seconds
+  // const interval = setInterval(() => {
+  //   fetchMessages();
+  // }, 3000); // Poll every  3 seconds
 
-  // Cleanup the interval when the component unmounts
-  return () => clearInterval(interval);
+  // // Cleanup the interval when the component unmounts
+  // return () => clearInterval(interval);
 }, [username, receiverUsername]);
 
 return (
