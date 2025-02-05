@@ -10,32 +10,32 @@ function Chats() {
     const [comments, setComments] = useState([]);
 
    
- // Fetch comments for each post
-    // const fetchComments = async (postId) => {
-    //     try {
-    //         const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
-    //         const data = await response.json();
+ Fetch comments for each post
+    const fetchComments = async (postId) => {
+        try {
+            const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
+            const data = await response.json();
     
-    //         setComments((prevComments) => {
-    //             const newComments = data.filter(
-    //                 (newComment) =>
-    //                     !prevComments.some(
-    //                         (existingComment) =>
-    //                             existingComment.id === newComment.id && existingComment.postId === newComment.postId
-    //                     )
-    //             );
-    //             return [...prevComments, ...newComments];
-    //         });
-    //     } catch (error) {
-    //         console.error('Error fetching comments:', error);
-    //     }
-    // };
+            setComments((prevComments) => {
+                const newComments = data.filter(
+                    (newComment) =>
+                        !prevComments.some(
+                            (existingComment) =>
+                                existingComment.id === newComment.id && existingComment.postId === newComment.postId
+                        )
+                );
+                return [...prevComments, ...newComments];
+            });
+        } catch (error) {
+            console.error('Error fetching comments:', error);
+        }
+    };
     
 
     useEffect(() => {
         if (posts.length > 0) {
             posts.forEach(post => {
-                console.log(post.id)
+                console.log(post._id)
                 const postId = post._id;
             if (!postId) {
                 console.error('Invalid postId:', post);
@@ -64,7 +64,7 @@ function Chats() {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content, username,parentId }),
+                body: JSON.stringify({ content: text, username,parentId }),
             });
     
             if (!response.ok) throw new Error('Failed to save comment');
@@ -102,7 +102,7 @@ function Chats() {
           key={comment._id}
             comment={comment}
             replies={[]}
-            addReply={(text) => addComment(content, comment._id)}
+            addReply={(text) => addComment(text, comment._id)}
            avatarUrl = {commentAvatarUrl}
         />
     );

@@ -30,10 +30,10 @@ const fetchItems = async () =>{
     console.log(response.data);
     // console.log(username)
   
-  if (!Array.isArray(response.data)) {
-    console.error("Error: Expected an array but got:", response.data);
-    return;
-  }
+  // if (!Array.isArray(response.data)) {
+  //   console.error("Error: Expected an array but got:", response.data);
+  //   return;
+  // }
 
   setPosts(response.data)
   
