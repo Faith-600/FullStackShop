@@ -1,39 +1,51 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../../App";
+import { io } from 'socket.io-client'
 
-function SenderChat({ receiver }) {
+
+function SenderChat({  receiver }) {
   const [messages, setMessages] = useState([]);
   const { username } = useContext(UserContext);
 
-  // Function to fetch messages from the backend
+ 
+
+ 
+
   const fetchMessages = () => {
     if (receiver) {
       axios
         .get(`https://full-stack-shop-backend.vercel.app/messages/${username}/${receiver}`)
         .then((response) => {
-          setMessages(response.data); // Update state with new messages
+       setMessages(response.data);
         })
         .catch((error) => console.error("Error fetching messages:", error));
     }
   };
 
   useEffect(() => {
-    // Fetch messages initially when the component mounts or receiver changes
-    fetchMessages();
+    fetchMessages(); 
 
-    // Set up polling to fetch new messages every 3 seconds
-    const interval = setInterval(fetchMessages, 3000); // Poll every 3 seconds
+ 
+      if ((newMessage.sender === username && newMessage.receiver === receiver) ||
+          (newMessage.sender === receiver && newMessage.receiver === username)) {
+        setMessages((prevMessages) => [...prevMessages, newMessage]);
+      }
+    });
 
-    return () => {
-      clearInterval(interval); // Cleanup on unmount
-    };
-  }, [username, receiver]); // Re-run this effect when username or receiver changes
+    const interval = setInterval(fetchMessages, 3000); 
 
-  // Display message if no receiver is selected
+    return () =>{
+      clearInterval(interval); 
+    
+    } 
+  }, [username, receiver]);
+
   if (!receiver) {
     return <p className="text-gray-500 text-center">Select a user to start chatting.</p>;
   }
+
+  
 
   return (
     <div className="p-4">
@@ -45,11 +57,12 @@ function SenderChat({ receiver }) {
           }`}
         >
           {message.sender !== username && (
-            <img
-              src={`https://robohash.org/${message.sender}`}
-              alt={`${message.sender}'s Avatar`}
-              className="w-12 h-12 rounded-full object-cover mr-4"
-            />
+           <img
+           src={`https://robohash.org/${message.sender}`}
+       alt={`${message.sender}'s Avatar`}
+           className="w-12 h-12 rounded-full object-cover mr-4"
+         />
+         
           )}
           <div
             className={`inline-block px-4 py-2 rounded-lg ${
