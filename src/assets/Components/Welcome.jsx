@@ -87,10 +87,11 @@ const handleUpdate = (_id) => {
   axios
     .put(`https://full-stack-shop-backend.vercel.app/posts/${_id}`, { content: editContent })
     .then((response) => {
-      if (response.data.success) {
+      console.log("Update Response:", response.data);
+      if (response.data.post) {
         setPosts((prevPosts) =>
           prevPosts.map((p) =>
-            p._id === _id ? { ...p, content: editContent } : p
+            p._id === _id ? { ...p, content:response.data.post.content  } : p
           )
         );
         setEdit(null);
