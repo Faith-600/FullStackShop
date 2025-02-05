@@ -1,52 +1,39 @@
-import React, { useEffect, useState,useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { UserContext } from "../../App";
-import { io } from 'socket.io-client'
 
-
-function SenderChat({  receiver }) {
+function SenderChat({ receiver }) {
   const [messages, setMessages] = useState([]);
   const { username } = useContext(UserContext);
 
-  const socket = io('https://full-stack-shop-backend.vercel.app',{
-    transports: ['polling'],
-  )};
- 
-
+  // Function to fetch messages from the backend
   const fetchMessages = () => {
     if (receiver) {
       axios
         .get(`https://full-stack-shop-backend.vercel.app/messages/${username}/${receiver}`)
         .then((response) => {
-       setMessages(response.data);
+          setMessages(response.data); // Update state with new messages
         })
         .catch((error) => console.error("Error fetching messages:", error));
     }
   };
 
   useEffect(() => {
-    fetchMessages(); 
+    // Fetch messages initially when the component mounts or receiver changes
+    fetchMessages();
 
-    socket.on('newMessage', (newMessage) => {
-      if ((newMessage.sender === username && newMessage.receiver === receiver) ||
-          (newMessage.sender === receiver && newMessage.receiver === username)) {
-        setMessages((prevMessages) => [...prevMessages, newMessage]);
-      }
-    });
+    // Set up polling to fetch new messages every 3 seconds
+    const interval = setInterval(fetchMessages, 3000); // Poll every 3 seconds
 
-    const interval = setInterval(fetchMessages, 3000); 
+    return () => {
+      clearInterval(interval); // Cleanup on unmount
+    };
+  }, [username, receiver]); // Re-run this effect when username or receiver changes
 
-    return () =>{
-      clearInterval(interval); 
-      socket.off('newMessage')
-    } 
-  }, [username, receiver]);
-
+  // Display message if no receiver is selected
   if (!receiver) {
     return <p className="text-gray-500 text-center">Select a user to start chatting.</p>;
   }
-
-  
 
   return (
     <div className="p-4">
@@ -58,12 +45,11 @@ function SenderChat({  receiver }) {
           }`}
         >
           {message.sender !== username && (
-           <img
-           src={`https://robohash.org/${message.sender}`}
-       alt={`${message.sender}'s Avatar`}
-           className="w-12 h-12 rounded-full object-cover mr-4"
-         />
-         
+            <img
+              src={`https://robohash.org/${message.sender}`}
+              alt={`${message.sender}'s Avatar`}
+              className="w-12 h-12 rounded-full object-cover mr-4"
+            />
           )}
           <div
             className={`inline-block px-4 py-2 rounded-lg ${

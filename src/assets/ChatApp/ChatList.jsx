@@ -9,15 +9,27 @@ function ChatList() {
  const [messages, setMessages] = useState([]);
 
 
-  useEffect(() => {
-    socket.on('newMessage', (newMessage) => {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
+ const fetchMessages = async () => {
+  try {
+    const response = await axios.get(`https://full-stack-shop-backend.vercel.app/messages/${username}/${receiverUsername}`);
+    setMessages(response.data); // Update state with the latest messages
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+  }
+};
 
-    return () => {
-      socket.off('newMessage');
-    };
-  }, []);
+// Polling function to fetch messages every 5 seconds
+useEffect(() => {
+  fetchMessages(); // Initial fetch on mount
+  
+  // Set up polling every 3 seconds
+  const interval = setInterval(() => {
+    fetchMessages();
+  }, 3000); // Poll every  3 seconds
+
+  // Cleanup the interval when the component unmounts
+  return () => clearInterval(interval);
+}, [username, receiverUsername]);
 
 return (
   <div>
