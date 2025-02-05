@@ -55,10 +55,10 @@ function Chats() {
 
     // Add comment function
     const addComment = async (text, postId,parentId=null) => {
-        if (!text || !postId) 
+        if (!text || !postId) {
             console.error('Missing text or postId');
         return;
-           
+        }
     
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
