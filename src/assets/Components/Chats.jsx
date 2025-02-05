@@ -11,25 +11,25 @@ function Chats() {
 
    
  // Fetch comments for each post
-    const fetchComments = async (postId) => {
-        try {
-            const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
-            const data = await response.json();
+    // const fetchComments = async (postId) => {
+    //     try {
+    //         const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
+    //         const data = await response.json();
     
-            setComments((prevComments) => {
-                const newComments = data.filter(
-                    (newComment) =>
-                        !prevComments.some(
-                            (existingComment) =>
-                                existingComment.id === newComment.id && existingComment.postId === newComment.postId
-                        )
-                );
-                return [...prevComments, ...newComments];
-            });
-        } catch (error) {
-            console.error('Error fetching comments:', error);
-        }
-    };
+    //         setComments((prevComments) => {
+    //             const newComments = data.filter(
+    //                 (newComment) =>
+    //                     !prevComments.some(
+    //                         (existingComment) =>
+    //                             existingComment.id === newComment.id && existingComment.postId === newComment.postId
+    //                     )
+    //             );
+    //             return [...prevComments, ...newComments];
+    //         });
+    //     } catch (error) {
+    //         console.error('Error fetching comments:', error);
+    //     }
+    // };
     
 
     useEffect(() => {
@@ -64,7 +64,7 @@ function Chats() {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: text, username,parentId }),
+                body: JSON.stringify({ content, username,parentId }),
             });
     
             if (!response.ok) throw new Error('Failed to save comment');
@@ -80,7 +80,7 @@ function Chats() {
         
     // Render posts and comments
     const renderPosts = () => {
-        if (!posts || posts.length === 0) return <p>No posts available</p>;
+        if (!Array.isArray(posts) || posts.length === 0) return <p>No posts available</p>;
 
         return posts.map((post) => (
             <li key={`post-${post._id}`} className="tweet">
@@ -102,7 +102,7 @@ function Chats() {
           key={comment._id}
             comment={comment}
             replies={[]}
-            addReply={(text) => addComment(text, comment._id)}
+            addReply={(text) => addComment(content, comment._id)}
            avatarUrl = {commentAvatarUrl}
         />
     );
