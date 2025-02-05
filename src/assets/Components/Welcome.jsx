@@ -88,10 +88,10 @@ const handleUpdate = (_id) => {
     .put(`https://full-stack-shop-backend.vercel.app/posts/${_id}`, { content: editContent })
     .then((response) => {
       console.log("Update Response:", response.data);
-      if (response.data.post) {
+      if (response.data) {
         setPosts((prevPosts) =>
           prevPosts.map((p) =>
-            p._id === _id ? { ...p, content:editContent  } : p
+            p._id === _id ? { ...p, content:response.data.content  } : p
           )
         );
         setEdit(null);
