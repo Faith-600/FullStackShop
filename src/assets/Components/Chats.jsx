@@ -59,32 +59,40 @@ function Chats() {
 
 
     // Add comment function
-    const addComment = async (text, postId,parentId=null) => {
+    const addComment = async (text, postId, parentId = null) => {
         if (!text || !postId) {
-            console.error('Missing text or postId');
-        return;
+            console.error(" Missing text or postId:", { text, postId });
+            return;
         }
     
         try {
-            const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: text, username,parentId }),
-            });
+            console.log("➡️ Sending POST request with:", { text, username, postId, parentId });
     
-            if (!response.ok) throw new Error('Failed to save comment');
+            const response = await fetch(
+                `https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ content: text, username, parentId }),
+                }
+            );
+    
+            console.log("📡 Response received:", response);
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                throw new Error(` Failed to save comment: ${response.status} - ${response.statusText}\n${errorMessage}`);
+            }
     
             const newComment = await response.json();
-            console.log("Comment added successfully:", newComment);
-
-            setComments((prevComments) => ({
-                ...prevComments,
-                [postId]: [...(prevComments[postId] || []), newComment],
-            }));
+            console.log(" Comment added successfully:", newComment);
+    
+            setComments((prevComments) => [...prevComments, { ...newComment, username, postId }]);
         } catch (err) {
-            console.error('Failed to create comment:', err);
+            console.error(" Failed to create comment:", err);
         }
     };
+    
         
     // Render posts and comments
     const renderPosts = () => {
