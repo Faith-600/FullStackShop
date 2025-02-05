@@ -14,6 +14,8 @@ function CommentForm({ handleSubmit, submitLabel }) {
   const onSubmit = (event) => {
     event.preventDefault();
     if (text.trim() !== "") {
+      console.log("message sent ",text);
+
       handleSubmit(text); // Pass the comment text to the parent handler
       setText(""); // Clear the textarea
       setIsReplying(false); // Hide the reply form after submission
