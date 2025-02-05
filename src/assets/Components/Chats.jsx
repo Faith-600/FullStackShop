@@ -1,81 +1,50 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { PostsContext,UserContext } from '../../App';
+import { PostsContext, UserContext } from '../../App';
 import Comment from './Comment';
 import CommentForm from './CommentForm';
 
-
 function Chats() {
     const { posts } = useContext(PostsContext);
-     const { username } = useContext(UserContext);
-    const [comments, setComments] = useState([]);
+    const { username } = useContext(UserContext);
+    const [comments, setComments] = useState({});
 
-   
- // Fetch comments for each post
+    // Fetch comments for each post
     const fetchComments = async (postId) => {
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`);
+            if (!response.ok) throw new Error('Failed to fetch comments');
             const data = await response.json();
-            setComments((prevComments) => ({ ...prevComments, [postId]: data })); // Store per post
-
-            // setComments((prevComments) => {
-                // const newComments = data.filter(
-                //     (newComment) =>
-                //         !prevComments.some(
-                //             (existingComment) =>
-                //                 existingComment.id === newComment.id && existingComment.postId === newComment.postId
-                //         )
-                // );
-                // return [...prevComments, ...newComments];
-            // });
+            console.log('Fetched comments:', data); // Log the data
+            setComments((prevComments) => ({ ...prevComments, [postId]: data }));
         } catch (error) {
             console.error('Error fetching comments:', error);
         }
     };
-    
 
-    // useEffect(() => {
-    //     if (posts.length > 0) {
-    //         posts.forEach(post => {
-    //             console.log(post.id)
-    //             const postId = post._id;
-    //         if (!postId) {
-    //             console.error('Invalid postId:', post);
-    //             return;
-    //         }
-    //             // Check if comments for this post have already been fetched
-    //             const commentsForPost = comments.filter(comment => comment.postId === postId);
-    //             if (commentsForPost.length === 0) {
-    //                 fetchComments(postId); // Fetch only if no comments exist
-    //             }
-    //         });
-    //     }
-    // }, [posts,comments]);
-    
     useEffect(() => {
         posts.forEach((post) => {
-          fetchComments(post._id);
+            fetchComments(post._id);
         });
-      }, [posts]);
-
+    }, [posts]);
 
     // Add comment function
-    const addComment = async (text, postId,parentId=null) => {
+    const addComment = async (text, postId, parentId = null) => {
         if (!text || !postId) {
             console.error('Missing text or postId');
-        return;
+            return;
         }
-    
+
         try {
             const response = await fetch(`https://full-stack-shop-backend.vercel.app/api/posts/${postId}/comments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: text, username,parentId }),
+                body: JSON.stringify({ content: text, username, parentId }),
             });
-    
+
             if (!response.ok) throw new Error('Failed to save comment');
-    
+
             const newComment = await response.json();
-            console.log("Comment added successfully:", newComment);
+            console.log('Comment added successfully:', newComment); // Log the new comment
 
             setComments((prevComments) => ({
                 ...prevComments,
@@ -85,7 +54,7 @@ function Chats() {
             console.error('Failed to create comment:', err);
         }
     };
-        
+
     // Render posts and comments
     const renderPosts = () => {
         if (!posts || posts.length === 0) return <p>No posts available</p>;
@@ -100,23 +69,19 @@ function Chats() {
                     </div>
                 </div>
                 <CommentForm submitLabel="Reply" handleSubmit={(text) => addComment(text, post._id)} />
-                
-                {comments.filter(comment => comment.postId === post._id).map(comment => {
-                   // Use the comment's existing id as the unique key
-            //    const uniqueKey = `comment-${comment.postId}-${comment._id}`;
-               const commentAvatarUrl = `https://robohash.org/${comment.username}`;
 
-    
-     return (
-        <Comment
-            key={comment._id}
-            comment={comment}
-            replies={[]}
-            addReply={(text) => addComment(text,post._id)}
-           avatarUrl = {commentAvatarUrl}
-        />
-    );
-})}
+                {comments[post._id]?.map((comment) => {
+                    const commentAvatarUrl = `https://robohash.org/${comment.username}`;
+                    return (
+                        <Comment
+                            key={comment._id}
+                            comment={comment}
+                            replies={[]}
+                            addReply={(text) => addComment(text, post._id, comment._id)}
+                            avatarUrl={commentAvatarUrl}
+                        />
+                    );
+                })}
             </li>
         ));
     };
@@ -134,4 +99,3 @@ function Chats() {
 }
 
 export default Chats;
-
