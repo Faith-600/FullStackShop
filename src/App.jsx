@@ -57,6 +57,8 @@ function App() {
           <Route path="/marketplace/product/:id" element={<ItemsDetail />} />
           <Route path="/checkout" element={<Checkout />} errorElement={<ErrorFallback />} />
           <Route path="/message" element={<Message />} errorElement={<ErrorFallback />} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+
         </Route>
         <Route path="*" element={<Error />} />
       </>
