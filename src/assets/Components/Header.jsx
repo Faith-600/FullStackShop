@@ -21,7 +21,7 @@ function Header() {
             sessionStorage.clear();
             localStorage.removeItem('authToken');
              setPosts([])
-            navigate('/login'); 
+            navigate('/'); 
           }
         })
         .catch((err) => console.error(err));
