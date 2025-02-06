@@ -29,9 +29,9 @@ const ChatWeb = () => {
               setLastMessages((prevMessages) => ({
                 ...prevMessages,
                 [sender]: { content: newMessage.content, timestamp: new Date() },
-              }));
+              });
             }
-          });
+        
       
          }, []);
 
