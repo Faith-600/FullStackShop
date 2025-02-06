@@ -4,7 +4,7 @@ import Signup from './assets/Components/Signup';
 import './index.css';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import SignIn from './assets/Components/SignIn';
-import Error from './assets/Components/Error';
+import NotFound from './assets/Components/404';
 import Chats from './assets/Components/Chats';
 import Layout from './assets/Components/Layout';
 import axios from 'axios';
@@ -60,7 +60,7 @@ function App() {
          
 
         </Route>
-        <Route path="*" element={<Error />} />
+        <Route path="*" element={<NotFound />} />
       </>
     )
   );
