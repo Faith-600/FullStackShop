@@ -18,7 +18,8 @@ function Header() {
         .then((res) => {
           if (res.status === 200) {
             setUsername(null);  
-            sessionStorage.clear(); 
+            sessionStorage.clear();
+            localStorage.clear();   
             setPosts([])
             navigate('/'); 
           }
