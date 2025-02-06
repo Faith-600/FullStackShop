@@ -19,7 +19,8 @@ function Header() {
           if (res.status === 200) {
             setUsername(null);  
             sessionStorage.clear();
-            localStorage.clear();   
+            localStorage.clear();
+            cookies.clear()   
             setPosts([])
             navigate('/'); 
           }
