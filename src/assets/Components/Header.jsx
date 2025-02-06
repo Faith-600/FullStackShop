@@ -21,7 +21,7 @@ function Header() {
             sessionStorage.clear();
             localStorage.clear();
                setPosts([])
-            navigate('/'); 
+            navigate('/login'); 
           }
         })
         .catch((err) => console.error(err));
