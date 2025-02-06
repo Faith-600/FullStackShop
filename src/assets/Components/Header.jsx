@@ -19,8 +19,8 @@ function Header() {
           if (res.status === 200) {
             setUsername(null);  
             sessionStorage.clear();
-            localStorage.clear();
-               setPosts([])
+            localStorage.removeItem('authToken');
+             setPosts([])
             navigate('/login'); 
           }
         })
