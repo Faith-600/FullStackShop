@@ -20,8 +20,7 @@ function Header() {
             setUsername(null);  
             sessionStorage.clear();
             localStorage.clear();
-            cookies.clear()   
-            setPosts([])
+               setPosts([])
             navigate('/'); 
           }
         })
