@@ -54,7 +54,7 @@ const ChatWeb = () => {
         .post("https://full-stack-shop-backend.vercel.app/messages", newMsg)
         .then(() => {
           setMessage("");
-          setMessages((prevMessages) => [...prevMessages, newMsg]); // Update local messages instantly
+          setMessages((prevMessages) => [...prevMessages, newMsg]); 
           setLastMessages((prevMessages) => ({
             ...prevMessages,
             [receiver]: { content: newMsg.content, timestamp: new Date() },
