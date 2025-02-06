@@ -25,7 +25,7 @@ function Chats() {
 
     useEffect(() => {
         posts.forEach((post) => {
-            fetchComments(post._id);
+            fetchComments(postId);
         });
     }, [posts]);
 

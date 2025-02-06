@@ -12,6 +12,8 @@ function CommentForm({ handleSubmit, submitLabel }) {
   };
 
   const onSubmit = (event) => {
+    console.log("message sent ",text);
+
     event.preventDefault();
     if (text.trim() !== "") {
       console.log("message sent ",text);
