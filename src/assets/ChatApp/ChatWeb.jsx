@@ -122,7 +122,7 @@ const ChatWeb = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button className="bg-indigo-500 text-white px-4 py-2 rounded-md ml-2"
+            <button className={`bg-indigo-500 text-white px-4 py-2 rounded-md ml-2 ${username === 'Guest' ? 'cursor-not-allowed opacity-50' : ''}`}
               onClick={sendMessage}
               disabled={username === "Guest"}>
               Send
@@ -133,7 +133,6 @@ const ChatWeb = () => {
     </div>
   );
 };
-
 
 
 
