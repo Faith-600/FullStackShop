@@ -99,7 +99,7 @@ function Header() {
             <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                src="https://img.freepik.com/premium-vector/blue-waves-simple-logo-design_302761-1052.jpg?w=996"
                 alt="Your Company Logo"
                 className="h-8 w-auto"
               />
