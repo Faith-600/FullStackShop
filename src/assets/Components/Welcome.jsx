@@ -169,7 +169,7 @@ useEffect(() => {
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <img
             alt=""
-            src="https://tailwindui.com/plus/img/logos/workcation-logo-indigo-600.svg"
+            src="https://img.freepik.com/premium-vector/blue-waves-simple-logo-design_302761-1052.jpg?w=996"
             className="mx-auto h-12"
           />
           <figure className="mt-10">
