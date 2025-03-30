@@ -6,7 +6,7 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-6">
+    <div className="flex flex-col items-center p-6 mt-16">
       <img
         src="https://i0.wp.com/picjumbo.com/wp-content/uploads/cheers-free-photo.jpg?w=2210&quality=70"
         alt="Our Story"
@@ -16,7 +16,7 @@ const About = () => {
       <h1 className="text-2xl font-bold mt-6">Our Story</h1>
       <p className="text-lg leading-7 p-4 text-center max-w-3xl">
         Hi 👋🏽👋🏻👋🏿, I'm Faith Ezekiel, the creator of CircleKonnect.
-        
+
         CircleKonnect is my first major project since transitioning into tech. What started as a simple login and signup project soon grew into something bigger.
         I've always been curious about my friends' wider circles, wanting to connect with their friends and get to know them better. That curiosity inspired me to build CircleConnect, 
         a platform designed to bridge connections, expand friendships, and help people discover more about their extended networks.
