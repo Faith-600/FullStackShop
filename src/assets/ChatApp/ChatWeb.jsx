@@ -37,7 +37,7 @@ const ChatWeb = () => {
             }));
           }
         })
-        .catch((error) => console.error("Error fetching messages:", error.message));
+        .catch((error) => console.error("Error fetching messages:", error));
     };
 
     fetchMessages(); 

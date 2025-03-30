@@ -18,8 +18,9 @@ function Header() {
         .then((res) => {
           if (res.status === 200) {
             setUsername(null);  
-            sessionStorage.clear(); 
-            setPosts([])
+            sessionStorage.clear();
+            localStorage.removeItem('authToken');
+             setPosts([])
             navigate('/'); 
           }
         })
@@ -94,16 +95,16 @@ function Header() {
       <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-50" />
         <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-          <div className="flex items-center justify-between">
-            <Link to="/" className="-m-1.5 p-1.5">
+           <div className="flex items-center justify-between">
+             {/* <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
               <img
-                src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
+                src="https://img.freepik.com/premium-vector/blue-waves-simple-logo-design_302761-1052.jpg?w=996"
                 alt="Your Company Logo"
                 className="h-8 w-auto"
               />
-            </Link>
-            <button
+            </Link>  */}
+            <button 
               type="button"
               onClick={() => setMobileMenuOpen(false)}
               className="-m-2.5 rounded-md p-2.5 text-gray-700"

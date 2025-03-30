@@ -24,7 +24,10 @@ function Comment({ comment, replies, addReply,avatarUrl}) {
           <CommentForm
             submitLabel=""
             handleSubmit={(text) => {
-              addReply(text, comment.id); // Add reply via handler
+              console.log("message sent ",text);
+              console.log("Id for text ",comment._id)
+              addReply(text, comment._id); // Add reply via handler
+
            }}
           />
         </div> 
@@ -36,7 +39,7 @@ function Comment({ comment, replies, addReply,avatarUrl}) {
         <div className="ml-10">
           {replies.map((reply) => (
             <Comment
-              key={reply.id}
+              key={reply._id}
               comment={reply}
               replies={[]} // Pass replies if nested replies are supported
               addReply={addReply} // Pass addReply for recursive replies

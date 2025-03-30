@@ -27,18 +27,18 @@ function SignIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (values.email === '' && values.password === '') {
-      console.log("Guest login successful");
-      setUsername('Guest'); 
-      navigate('/welcome'); 
-      return;
-    }
+    // if (values.email === '' && values.password === '') {
+    //   console.log("Guest login successful");
+    //   setUsername('Guest'); 
+    //   navigate('/welcome'); 
+    //   return;
+    // }
     axios
       .post('https://full-stack-shop-backend.vercel.app/login', values)
       .then((res) => {
         console.log("Login response:", res.data);
         if (res.data.Login) {
-          setUsername(res.data.username)
+          setUsername(res.data.user?.name|| "Guest")
           navigate('/welcome');
         } else {
           showAlert('danger', "Password or Email is incorrect");

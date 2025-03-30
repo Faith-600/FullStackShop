@@ -27,10 +27,17 @@ axios.defaults.withCredentials = true;
 const fetchItems = async () =>{
   try{
     const response = await axios.get('https://full-stack-shop-backend.vercel.app/posts');
-    console.log(response.data.posts);
+    console.log(response.data);
     // console.log(username)
-  setPosts(response.data.posts)
-  }
+  
+  // if (!Array.isArray(response.data)) {
+  //   console.error("Error: Expected an array but got:", response.data);
+  //   return;
+  // }
+
+  setPosts(response.data)
+  
+}
   catch(error){
      console.error('Error fetching posts:', error);
   }
@@ -60,8 +67,8 @@ const handleSubmit = (e) => {
     .post('https://full-stack-shop-backend.vercel.app/posts', { content: newPost, username })
     .then((response) => {
       console.log(response.data);
-      let {content,username,created_at,id}  =  response.data
-      setPosts((prevPosts) => [...prevPosts, {content,username,created_at,id}]); // Add the new post
+      let {content,username,created_at,_id}  =  response.data
+      setPosts((prevPosts) => [...prevPosts, {content,username,created_at,_id}]); // Add the new post
       setNewPost(''); // Clear the input
       fetchItems()
      
@@ -71,19 +78,20 @@ const handleSubmit = (e) => {
     });
 };
 
-const handleEdit = (id, content) => {
-  setEdit(id);
+const handleEdit = (_id, content) => {
+  setEdit(_id);
   setEditContent(content);
 };
 
-const handleUpdate = (id) => {
+const handleUpdate = (_id) => {
   axios
-    .put(`https://full-stack-shop-backend.vercel.app/posts/${id}`, { content: editContent })
+    .put(`https://full-stack-shop-backend.vercel.app/posts/${_id}`, { content: editContent })
     .then((response) => {
-      if (response.data.success) {
+      console.log("Update Response:", response.data);
+      if (response.data) {
         setPosts((prevPosts) =>
           prevPosts.map((p) =>
-            p.id === id ? { ...p, content: editContent } : p
+            p._id === _id ? { ...p, content:response.data.content  } : p
           )
         );
         setEdit(null);
@@ -95,11 +103,11 @@ const handleUpdate = (id) => {
     .catch((err) => console.error('Error updating post:', err));
 };
 
-const handleDelete = (id) => {
+const handleDelete = (_id) => {
   axios
-    .delete(`https://full-stack-shop-backend.vercel.app/posts/${id}`)
+    .delete(`https://full-stack-shop-backend.vercel.app/posts/${_id}`)
     .then((res) => {
-      setPosts((prevPosts) => prevPosts.filter((post) => post.id !== id));
+      setPosts((prevPosts) => prevPosts.filter((post) => post._id !== _id));
     })
     .catch((err) => {
       console.error('Error deleting post:', err);
@@ -161,7 +169,7 @@ useEffect(() => {
         <div className="mx-auto max-w-2xl lg:max-w-4xl">
           <img
             alt=""
-            src="https://tailwindui.com/plus/img/logos/workcation-logo-indigo-600.svg"
+            src="https://img.freepik.com/premium-vector/blue-waves-simple-logo-design_302761-1052.jpg?w=996"
             className="mx-auto h-12"
           />
           <figure className="mt-10">
@@ -171,8 +179,8 @@ useEffect(() => {
            {posts &&
             posts.filter((p)=>p.username === username)
            .map((p) => (
-            <li key={p.id} className='tweets'>
-              {p.id === edit?(
+            <li key={p._id} className='tweets'>
+              {p._id === edit?(
                 <>
                 <textarea type ='text'
                  className="w-full p-2 border rounded"
@@ -180,7 +188,7 @@ useEffect(() => {
                 onChange={(e)=>setEditContent(e.target.value)} 
                 rows='4'
                 />
-                <button onClick={()=>handleUpdate(p.id)}
+                <button onClick={()=>handleUpdate(p._id)}
                   className="ml-2 px-4 py-2 bg-blue-500 text-white rounded">
                     Save
                   </button>
@@ -188,7 +196,7 @@ useEffect(() => {
               ):(
                 <>
             <ul>
-            <li key={p.id} className="bg-white p-6 rounded-lg shadow-lg mb-6">
+            <li key={p._id} className="bg-white p-6 rounded-lg shadow-lg mb-6">
          <p className="pcontent">{p.content}</p>
         <div className="flex justify-between items-center mb-4">
         <div className="flex items-center">
@@ -201,19 +209,19 @@ useEffect(() => {
           </div>
           <div>
             <p className="font-semibold text-lg">{p.username}</p>
-            <p className="text-sm text-gray-500">{new Date(p.created_at).toLocaleString()}</p>
+            <p className="text-sm text-gray-500">{new Date(p.createdAt).toLocaleString()}</p>
           </div>
         </div>
          <div>
           <FontAwesomeIcon
             icon={faPenToSquare}
             className="cursor-pointer mr-4 text-blue-500"
-            onClick={() => handleEdit(p.id, p.content)}
+            onClick={() => handleEdit(p._id, p.content)}
           />
           <FontAwesomeIcon
             icon={faTrash}
             className="cursor-pointer text-red-500"
-            onClick={() => handleDelete(p.id)}
+            onClick={() => handleDelete(p._id)}
           />
         </div>
       </div>
