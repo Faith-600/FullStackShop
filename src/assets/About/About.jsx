@@ -10,7 +10,7 @@ const About = () => {
       <img
         src="https://i0.wp.com/picjumbo.com/wp-content/uploads/cheers-free-photo.jpg?w=2210&quality=70"
         alt="Our Story"
-        className="w-full h-80 object-cover rounded-lg shadow-lg"
+        className="w-full h-100 object-cover rounded-lg shadow-lg"
       />
 
       <h1 className="text-2xl font-bold mt-6">Our Story</h1>
