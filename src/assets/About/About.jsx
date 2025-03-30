@@ -6,7 +6,7 @@ const About = () => {
   };
 
   return (
-    <div className="flex flex-col items-center p-6 mt-16">
+    <div className="flex flex-col items-center p-6 mt-40">
       <img
         src="https://i0.wp.com/picjumbo.com/wp-content/uploads/cheers-free-photo.jpg?w=2210&quality=70"
         alt="Our Story"
