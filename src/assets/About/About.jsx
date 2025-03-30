@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 const About = () => {
   const openGitHub = () => {
     window.open('https://github.com/Faith-600', '_blank');
