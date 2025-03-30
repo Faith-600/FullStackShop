@@ -15,7 +15,7 @@ import ErrorFallback from './assets/Components/ErrorFallback';
 import { ErrorBoundary } from 'react-error-boundary';
 import Message from './assets/ChatApp/Message';
 import ItemsDetail from './Redux/ItemsDetail';
-import NotFound from './assets/Components/404';
+
 
 export const UserContext = React.createContext();
 export const PostsContext = React.createContext();
@@ -40,7 +40,7 @@ function App() {
       })
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
-  }, []); // Effect runs once on mount
+  }, []); 
 
   if (loading) {
     return <p className="Loading">Loading...</p>;
@@ -58,6 +58,8 @@ function App() {
           <Route path="/marketplace/product/:id" element={<ItemsDetail />} />
           <Route path="/checkout" element={<Checkout />} errorElement={<ErrorFallback />} />
           <Route path="/message" element={<Message />} errorElement={<ErrorFallback />} />
+          <Route path="/about" element={<About />} errorElement={<ErrorFallback />} />
+         
          
 
         </Route>
