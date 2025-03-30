@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CommentForm from './CommentForm';
 
 function Comment({ comment, replies, addReply,avatarUrl}) {

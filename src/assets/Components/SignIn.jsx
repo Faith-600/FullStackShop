@@ -15,9 +15,7 @@ function SignIn() {
 
   const [alert, setAlert] = useState({ show: false, msg: '', type: '' });
   const navigate = useNavigate();
-  const location = useLocation();
-  const { username, setUsername } = useContext(UserContext); 
-  const { setPosts } = useContext(PostsContext);
+  const {  setUsername } = useContext(UserContext); 
  
 
   const handleInput = (e) => {

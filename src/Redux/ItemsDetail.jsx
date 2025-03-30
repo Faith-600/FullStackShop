@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { StarIcon } from '@heroicons/react/20/solid';
-import { Radio, RadioGroup } from '@headlessui/react';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -13,11 +12,7 @@ function ItemsDetail() {
   const { id } = useParams();
   const reviews = { href: '#', average: 4, totalCount: 117 };
  
-
-
-
-
-  const { data: item, isLoading, error } = useQuery({
+const { data: item, isLoading, error } = useQuery({
     queryKey: ['item', id],
     queryFn: async () => {
       const response = await axios.get(`https://fakestoreapi.com/products/${id}`);

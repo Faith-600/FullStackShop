@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 
-function Layout({posts,setPosts}) {
+function Layout({setPosts}) {
 
 
   useEffect(() => {

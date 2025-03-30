@@ -1,5 +1,4 @@
-import React from 'react'
-import Subtotal from './Subtotal';
+
 const initialState = {
     cart:[],
     Subtotal:0,

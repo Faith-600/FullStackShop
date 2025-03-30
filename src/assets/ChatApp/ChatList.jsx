@@ -1,3 +1,4 @@
+
 import React,{useContext,useState,useEffect} from 'react'
 import { UserContext } from '../../App'
 import SenderChat from './SenderChat';
@@ -9,15 +10,21 @@ function ChatList() {
  const [messages, setMessages] = useState([]);
 
 
-  useEffect(() => {
-    socket.on('newMessage', (newMessage) => {
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
+ const fetchMessages = async () => {
+  try {
+    const response = await axios.get(`https://full-stack-shop-backend.vercel.app/messages/${username}/${receiverUsername}`);
+    setMessages(response.data);
+  } catch (error) {
+    console.error('Error fetching messages:', error);
+  }
+};
 
-    return () => {
-      socket.off('newMessage');
-    };
-  }, []);
+
+useEffect(() => {
+  fetchMessages();
+  
+ 
+}, [username, receiverUsername]);
 
 return (
   <div>
